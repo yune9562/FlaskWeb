@@ -330,7 +330,7 @@ def edit(id):
         if file:
             # 파일이 존재하면 저장
             filename = file.filename
-            file_path = os.path.join('uploads', filename)
+            file_path = os.path.join('static/uploads', filename)
             file.save(file_path)
         
         # DB 업데이트
