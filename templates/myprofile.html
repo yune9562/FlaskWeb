@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
+    <title>내 프로필 페이지</title>
+    <script>
+        // 이미지 미리보기를 위한 함수
+        function previewImage(input) {
+            var file = input.files[0];
+            if (file) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('profilePreview').src = e.target.result;
+                    document.getElementById('profilePreview').style.display = 'block';
+                    document.getElementById('cancelButton').style.display = 'inline-block';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // 이미지 취소 기능
+        function cancelImage() {
+            document.getElementById('profileImageInput').value = ''; // 파일 입력 초기화
+            const defaultSrc = "{{ url_for('static', filename=user['profile_image']) if user['profile_image'] else url_for('static', filename='default.png') }}";
+            document.getElementById('profilePreview').src = defaultSrc; // 기본 이미지로 복구
+            document.getElementById('cancelButton').style.display = 'none'; // 취소 버튼 숨기기
+        }
+    </script>
+    <style>
+        /* 이미지 미리보기 스타일 */
+        #profilePreview {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;  /* 이미지 비율 유지 */
+            border-radius: 50%;  /* 동그라미 */
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <br><div class="container">
+        <div class="card align-middle" style="width:100%; border-radius:20px;">
+            <div class="card-title" style="margin-top:50px;">
+                <h2 class="card-title text-center" style="color:#113366;">내 프로필 수정</h2>
+            </div>
+            <div class="card-body">
+                <form class="form-signin" method="POST" action="/myprofile" enctype="multipart/form-data"> 
+                    <!-- 프로필 정보 -->
+                    <input type="text" name="id" class="form-control" value="{{ user['user_id'] }}" readonly><br>
+                    <input type="password" name="pw" class="form-control" placeholder="PASSWORD" required><br>
+                    <input type="text" name="name" class="form-control" value="{{ user['name'] }}" required><br>
+                    <input type="text" name="school" class="form-control" value="{{ user['school'] }}" required><br>
+                    
+                    <!-- 프로필 이미지 업로드 필드 -->
+                    <input type="file" id="profileImageInput" name="profile_image" class="form-control" onchange="previewImage(this)"><br>
+                    
+                    <!-- 이미지 미리보기 -->
+                    <div>
+                        <img id="profilePreview" 
+                             src="{{ url_for('static', filename=user['profile_image']) if user['profile_image'] else url_for('static', filename='default.png') }}" 
+                             alt="프로필 이미지 미리보기">
+                    </div>
+                    
+                    <!-- 이미지 취소 버튼 -->
+                    <button type="button" id="cancelButton" class="btn btn-danger" style="display:none; margin-top:10px;" onclick="cancelImage()">취소</button>
+                    
+                    <button class="btn btn-primary btn-block" type="submit">수정하기</button>
+                    <button class="btn btn-primary btn-block" type="button" onclick="location.href='/post'">뒤로가기</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

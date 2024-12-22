@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>프로필</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>{{ user['name'] }}님의 프로필</h1>
+        <table class="table">
+            <tr>
+                <th>아이디</th>
+                <td>{{ user['user_id'] }}</td>
+            </tr>
+            <tr>
+                <th>이름</th>
+                <td>{{ user['name'] }}</td>
+            </tr>
+            <tr>
+                <th>학교</th>
+                <td>{{ user['school'] }}</td>
+            </tr>
+            <tr>
+                <th>프로필 이미지</th>
+                <td>
+                    {% if user['profile_image'] %}
+                        <img src="{{ url_for('static', filename=user['profile_image']) }}" alt="프로필 이미지" width="100">
+                    {% else %}
+                        <img src="{{ url_for('static', filename='default_profile.png') }}" alt="기본 프로필 이미지" width="100">
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+
+        <!-- 로그인한 사용자가 자신의 프로필을 보고 있을 때만 수정 버튼을 표시 -->
+        {% if logged_in_user_id == user['user_id'] %}
+            <a href="/myprofile" class="btn btn-primary">프로필 수정</a>
+        {% endif %}
+
+        <!-- 돌아가기 버튼 -->
+        <a href="/post" class="btn btn-secondary mt-3">게시판으로 돌아가기</a>
+    </div>
+</body>
+</html>

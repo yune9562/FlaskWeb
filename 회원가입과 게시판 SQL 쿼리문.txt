@@ -1,0 +1,22 @@
+CREATE TABLE member(
+   user_id VARCHAR(20) NOT NULL,
+   user_password VARCHAR(20) NOT NULL,
+   name CHAR(10) NOT NULL,
+   school VARCHAR(12) NOT NULL,
+   profile_image VARCHAR(255)
+);
+
+
+
+
+CREATE TABLE boardtest (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    name VARCHAR(20) NULL,
+    title VARCHAR(70) NULL,
+    content TEXT NULL,
+    secret BOOLEAN DEFAULT FALSE,
+    wdate TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
+    view INT UNSIGNED NOT NULL DEFAULT 0,
+    file_data MEDIUMBLOB,
+    PRIMARY KEY (id)
+);

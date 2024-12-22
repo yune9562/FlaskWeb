@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+ 
+<head>
+    <title>edit page</title> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+</head> 
+<body>
+    <div class="container">
+        <div class="header">
+            <h3 class="text-muted">게시판 글수정</h3>
+        </div>
+        <section>
+            {% for data_ in data %}
+            <form class="form-horizontal" method="post" action="/post/edit/{{data_['id']}}" enctype="multipart/form-data">
+                <fieldset>
+                    <!-- Form Name -->
+                    <legend>게시한 글을 수정해주세요</legend>
+                    
+                    <!-- 제목 입력 -->
+                    <div class="form-group">
+                        <label class="col-md-12" for="txtTitle">제목</label>
+                        <div class="col-md-12">
+                            <input id="txtTitle" name="title" type="text" placeholder="제목을 입력하세요." class="form-control input-md" autofocus required value="{{data_['title']}}">
+                        </div>
+                    </div>
+
+                    <!-- 내용 입력 -->
+                    <div class="form-group">
+                        <label class="col-md-12" for="txtPost">내용</label>
+                        <div class="col-md-12">
+                            <textarea class="form-control" id="txtPost" name="content" placeholder="내용을 입력하세요." style="height:260px;" required>{{data_['content']}}</textarea>
+                        </div>
+                    </div>
+
+                    <!-- 비밀글 여부 체크박스 -->
+                    <div class="form-group">
+                        <label class="col-md-12" for="secretPost">비밀글</label>
+                        <div class="col-md-12">
+                            <input type="checkbox" id="secretPost" name="secret" value="1" {% if data_['secret'] %}checked{% endif %}>
+                            <label for="secretPost">이 글을 비밀글로 설정</label>
+                        </div>
+                    </div>
+
+                    <!-- 파일 업로드 -->
+                    <div class="form-group">
+                        <label class="col-md-12" for="fileUpload">첨부파일</label>
+                        <div class="col-md-12">
+                            <input type="file" id="fileUpload" name="file_data" class="form-control">
+                        </div>
+                    </div>
+
+                    <!-- 제출 버튼 -->
+                    <div class="form-group">
+                        <label class="col-md-12 control-label" for="singlebutton"></label>
+                        <div class="col-md-12">
+                            <input id="singlebutton" name="singlebutton" class="btn btn-primary" type="submit" value="수정하기">
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+            {% endfor %}
+        </section>
+    </div>
+</body>
+</html>

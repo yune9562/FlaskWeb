@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>비밀번호 찾기 결과</title>
+    <script>
+        var result = confirm("{{ user_password }}");
+        if(result){
+            document.location.href="/login";
+        }
+        else{
+            document.location.href="/find";
+        }
+    </script>
+</head>
+<body>
+    <h3>비밀번호 찾기 결과</h3>
+    <p>비밀번호는 {{ user_password }} 입니다.</p>
+</body>
+</html>

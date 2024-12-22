@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>아이디 찾기 결과</title>
+    <script>
+        var result = confirm("{{ user_id }}");
+        if(result){
+            document.location.href="/find";
+        }
+        else{
+            document.location.href="/login";
+        }
+    </script>
+</head>
+<body>
+    <h3>아이디 찾기 결과</h3>
+    <p>아이디는 {{ user_id }} 입니다.</p>
+</body>
+</html>
